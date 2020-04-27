@@ -42,19 +42,21 @@ export class TasksService {
   }
 
   getTaskById(id: string): Task {
-    const found = this.tasks.find(x => x.id === id);
+    const task = this.tasks.find(x => x.id === id);
 
-    if (!found) throw new NotFoundException(`Task with ID "${id}" not found`);
-    return found;
+    if (!task) throw new NotFoundException(`Task with ID "${id}" not found`);
+    return task;
   }
 
   updateTaskStatus(id: string, status: TaskStatus): Task {
     const task = this.getTaskById(id);
     task.status = status;
+
     return task;
   }
 
   deleteTask(id: string) {
-    this.tasks = this.tasks.filter(x => x.id !== id);
+    const task = this.getTaskById(id);
+    this.tasks = this.tasks.filter(x => x.id !== task.id);
   }
 }
