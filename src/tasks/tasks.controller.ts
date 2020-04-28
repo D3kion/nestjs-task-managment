@@ -24,12 +24,10 @@ import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
-  // @Get()
-  // getTasks(@Query(ValidationPipe) filterDTO: GetTasksFilterDTO): Task[] {
-  //   return Object.keys(filterDTO).length
-  //     ? this.tasksService.getTasksWithFilters(filterDTO)
-  //     : this.tasksService.getAllTasks();
-  // }
+  @Get()
+  getTasks(@Query(ValidationPipe) dto: GetTasksFilterDTO): Promise<Task[]> {
+    return this.tasksService.getTasks(dto);
+  }
 
   @Post()
   @UsePipes(ValidationPipe)

@@ -14,25 +14,9 @@ export class TasksService {
     private taskRepository: TaskRepository,
   ) {}
 
-  // getAllTasks(): Task[] {
-  //   return this.tasks;
-  // }
-
-  // getTasksWithFilters({ status, search }: GetTasksFilterDTO): Task[] {
-  //   let tasks = this.getAllTasks();
-
-  //   if (status) {
-  //     tasks = tasks.filter(x => x.status === status);
-  //   }
-
-  //   if (search) {
-  //     tasks = tasks.filter(
-  //       x => x.title.includes(search) || x.description.includes(search),
-  //     );
-  //   }
-
-  //   return tasks;
-  // }
+  async getTasks(dto: GetTasksFilterDTO): Promise<Task[]> {
+    return this.taskRepository.getTasks(dto);
+  }
 
   async createTask(dto: CreateTaskDTO): Promise<Task> {
     return this.taskRepository.createTask(dto);
