@@ -10,6 +10,7 @@ import {
   Query,
   UsePipes,
   ValidationPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
@@ -29,16 +30,16 @@ export class TasksController {
   //     : this.tasksService.getAllTasks();
   // }
 
-  // @Post()
-  // @UsePipes(ValidationPipe)
-  // createTask(@Body() createTaskDTO: CreateTaskDTO): Task {
-  //   return this.tasksService.createTask(createTaskDTO);
-  // }
+  @Post()
+  @UsePipes(ValidationPipe)
+  createTask(@Body() dto: CreateTaskDTO) {
+    return this.tasksService.createTask(dto);
+  }
 
-  // @Get(':id')
-  // getTaskById(@Param('id') id: string): Task {
-  //   return this.tasksService.getTaskById(id);
-  // }
+  @Get(':id')
+  getTaskById(@Param('id', ParseIntPipe) id: number) {
+    return this.tasksService.getTaskById(id);
+  }
 
   // @Patch(':id/status')
   // updateTaskStatus(
@@ -48,9 +49,9 @@ export class TasksController {
   //   return this.tasksService.updateTaskStatus(id, status);
   // }
 
-  // @Delete(':id')
-  // @HttpCode(204)
-  // deleteTask(@Param('id') id: string) {
-  //   this.tasksService.deleteTask(id);
-  // }
+  @Delete(':id')
+  @HttpCode(204)
+  deleteTask(@Param('id') id: number) {
+    return this.tasksService.deleteTask(id);
+  }
 }
